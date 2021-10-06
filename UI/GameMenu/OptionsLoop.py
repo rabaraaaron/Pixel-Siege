@@ -16,7 +16,8 @@ class OptionsLoop:
         while(paused):
 
             unpauseButton = pygame.Rect(WINDOW_WIDTH - 100, 10, 80, 20)
-            toMenuButton = pygame.Rect(WINDOW_WIDTH - 100, 60, 80, 20)
+            restartButton = pygame.Rect(WINDOW_WIDTH - 100, 40, 80, 20)
+            toMenuButton = pygame.Rect(WINDOW_WIDTH - 100, 70, 80, 20)
 
             mx, my = pygame.mouse.get_pos()
 
@@ -24,12 +25,17 @@ class OptionsLoop:
                 if(click):
                     return True
 
+            if(restartButton.collidepoint((mx, my))):
+                if(click):
+                    return True
+
             if(toMenuButton.collidepoint((mx, my))):
                 if(click):
                     return False
 
-            pygame.draw.rect(screen, (255, 0, 0), unpauseButton)
-            pygame.draw.rect(screen, (255, 0, 0), toMenuButton)
+            pygame.draw.rect(screen, (0, 0, 0), unpauseButton)
+            pygame.draw.rect(screen, (0, 0, 0), restartButton)
+            pygame.draw.rect(screen, (0, 0, 0), toMenuButton)
 
             click = False
 

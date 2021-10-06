@@ -2,11 +2,9 @@ import pygame
 from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 from UI.GameMenu.GameScreenPage import GameMenu
 from UI.ShopPage import ShopMenu
+from UI.MainMenu.MainMenuSelection import MainMenuSelection
 
 class MainMenu:
-
-    
-
 
     def drawText(text, font, color, surface, x, y):
         textObject = font.render(text, 1, color)
@@ -52,7 +50,7 @@ class MainMenu:
                 if(click):
                     mx, my = pygame.mouse.get_pos()
                     if(mouseLifted and startButton.collidepoint((mx, my))):
-                        GameMenu.gameMenu(GameMenu)
+                        MainMenuSelection.mainMenuSelection(MainMenuSelection)
                         click = False
                     elif(mouseLifted):
                         click = False
@@ -65,7 +63,7 @@ class MainMenu:
                 if(click):
                     mx, my = pygame.mouse.get_pos()
                     if(mouseLifted and shopButton.collidepoint((mx, my))):
-                        ShopMenu.shopMenu()
+                        ShopMenu.shopMenu(ShopMenu)
                         click = False
                     elif(mouseLifted):
                         click = False
@@ -85,10 +83,8 @@ class MainMenu:
                 if(event.type == MOUSEBUTTONDOWN):
                     if(event.button == 1):
                         click = True
-                        print("Clicked")
                 if(event.type == MOUSEBUTTONUP):
                     if(event.button == 1):
                         mouseLifted = True
-                        print("Lifted")
 
             pygame.display.update()

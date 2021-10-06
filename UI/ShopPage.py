@@ -11,36 +11,46 @@ screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 font = pygame.font.SysFont(None, 75)
 
 class ShopMenu:
-    
-    def shopMenu():
-        running = True
-        click = False
 
-        def drawText(text, font, color, surface, x, y):
+    def drawText(text, font, color, surface, x, y):
             textObject = font.render(text, 1, color)
             textRec = textObject.get_rect()
-            textRec.topleft = (x, y)
+            textRec.center = (x, y)
             surface.blit(textObject, textRec)
+    
+    def shopMenu(self):
+        running = True
+        click = False
+        black = (0, 0, 0)
+        white = (255, 255, 255)
+        bg = pygame.image.load("Assets/BG_PalmTree/cyberpunkShop.jpg")
+        picture = pygame.transform.scale(bg, (1000, 600))
+        backButtonYPos = 10
+        backButtonXPos = WINDOW_WIDTH-90
+        backButtonHeight = 20
+        backButtonWidth = 80
+        littleFont = pygame.font.SysFont(None, 28)
+
+        
 
         while(running):
 
-            screen.fill((0, 0, 0))
-            drawText("Shop menu", font, (255, 255, 255), screen, WINDOW_WIDTH/2 - 135, WINDOW_HEIGHT/4 - 10)
+            screen.blit(picture, (0, 0))
 
             mx, my = pygame.mouse.get_pos()
 
-            startButton = pygame.Rect(WINDOW_WIDTH/2 - 100, WINDOW_HEIGHT/2, 200, 50)
-            shopButton = pygame.Rect(WINDOW_WIDTH/2 - 100, WINDOW_HEIGHT/2 + 100, 200, 50)
+            backButton = pygame.Rect(backButtonXPos, backButtonYPos, backButtonWidth, backButtonHeight)
 
-            if(startButton.collidepoint((mx, my))):
+
+            if(backButton.collidepoint((mx, my))):
+                pygame.draw.rect(screen, white, backButton)
+                self.drawText("Back", littleFont, black, screen, backButtonXPos+backButtonWidth/2, backButtonYPos+backButtonHeight/2)
                 if(click):
                     running = False
-            if(shopButton.collidepoint((mx, my))):
-                if(click):
-                    running = False
+            else:
+                pygame.draw.rect(screen, black, backButton)
+                self.drawText("Back", littleFont, white, screen, backButtonXPos+backButtonWidth/2, backButtonYPos+backButtonHeight/2)
 
-            pygame.draw.rect(screen, (255, 0, 0), startButton)
-            pygame.draw.rect(screen, (255, 0, 0), shopButton)
 
             click = False
 

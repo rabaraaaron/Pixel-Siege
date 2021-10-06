@@ -2,7 +2,6 @@ import pygame
 from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 from UI.GameMenu.GameScreenPage import GameMenu
 from UI.ShopPage import ShopMenu
-from UI.MainMenu.MainMenuSelection import MainMenuSelection
 
 class MainMenu:
 
@@ -32,49 +31,101 @@ class MainMenu:
         firstButtonHeight = WINDOW_HEIGHT/2
         secondButtonHeight = WINDOW_HEIGHT/2+75
         halfWindowWidth = WINDOW_WIDTH/2
+        fourthWindowWidth = WINDOW_WIDTH/4 + 40
+        storedX, storedY = 0, 0
+        
 
         while(running):
             screen.blit(picture, (0, 0))
             self.drawText("Pixel Siege", bigFont, black, screen, halfWindowWidth, WINDOW_HEIGHT/3)
+            
 
             mx, my = pygame.mouse.get_pos()
 
-            startButton = pygame.Rect(halfWindowWidth - 100, firstButtonHeight, buttonWidth, buttonHeight)
-            shopButton = pygame.Rect(halfWindowWidth - 100, secondButtonHeight, buttonWidth, buttonHeight)
+            storyModeButton = pygame.Rect(fourthWindowWidth, firstButtonHeight, buttonWidth, buttonHeight)
+            survivalModeButton = pygame.Rect(halfWindowWidth, firstButtonHeight, buttonWidth, buttonHeight)
+            shopButton = pygame.Rect(fourthWindowWidth, secondButtonHeight, buttonWidth, buttonHeight)
+            optionsButton = pygame.Rect(halfWindowWidth, secondButtonHeight, buttonWidth, buttonHeight)
 
-            if(startButton.collidepoint((mx, my))):
-                pygame.draw.rect(screen, white, startButton, 0, borderRadius)
+
+            if(storyModeButton.collidepoint((mx, my))):
+                pygame.draw.rect(screen, white, storyModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, survivalModeButton, 0, borderRadius)
                 pygame.draw.rect(screen, black, shopButton, 0, borderRadius)
-                self.drawText("Play",littleFont, black, screen, halfWindowWidth, firstButtonHeight+buttonHeight/2)
-                self.drawText("Shop",littleFont, white, screen, halfWindowWidth, secondButtonHeight+buttonHeight/2)
+                pygame.draw.rect(screen, black, optionsButton, 0, borderRadius)
+                self.drawText("Story Mode",littleFont, black, screen, fourthWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Survival Mode",littleFont, white, screen, halfWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Shop",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                self.drawText("Options",littleFont, white, screen, halfWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                
                 if(click):
-                    mx, my = pygame.mouse.get_pos()
-                    if(mouseLifted and startButton.collidepoint((mx, my))):
-                        MainMenuSelection.mainMenuSelection(MainMenuSelection)
+                    if(mouseLifted and storyModeButton.collidepoint((storedX, storedY))):
+                        GameMenu.gameMenu(GameMenu)
+                        click = False
+                    elif(mouseLifted):
+                        click = False
+
+            if(survivalModeButton.collidepoint((mx, my))):
+                pygame.draw.rect(screen, black, storyModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, white, survivalModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, shopButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, optionsButton, 0, borderRadius)
+                self.drawText("Story Mode",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Survival Mode",littleFont, black, screen, halfWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Shop",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                self.drawText("Options",littleFont, white, screen, halfWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                if(click):
+                    if(mouseLifted and survivalModeButton.collidepoint((storedX, storedY))):
+                        print("Survival mode selected")
                         click = False
                     elif(mouseLifted):
                         click = False
 
             if(shopButton.collidepoint((mx, my))):
-                pygame.draw.rect(screen, black, startButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, storyModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, survivalModeButton, 0, borderRadius)
                 pygame.draw.rect(screen, white, shopButton, 0, borderRadius)
-                self.drawText("Play",littleFont, white, screen, halfWindowWidth, firstButtonHeight+buttonHeight/2)
-                self.drawText("Shop",littleFont, black, screen, halfWindowWidth, secondButtonHeight+buttonHeight/2)
+                pygame.draw.rect(screen, black, optionsButton, 0, borderRadius)
+                self.drawText("Story Mode",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Survival Mode",littleFont, white, screen, halfWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Shop",littleFont, black, screen, fourthWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                self.drawText("Options",littleFont, white, screen, halfWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
                 if(click):
-                    mx, my = pygame.mouse.get_pos()
-                    if(mouseLifted and shopButton.collidepoint((mx, my))):
+                    if(mouseLifted and shopButton.collidepoint((storedX, storedY))):
                         ShopMenu.shopMenu(ShopMenu)
+                        click = False
+                    elif(mouseLifted):
+                        click = False
+
+            if(optionsButton.collidepoint((mx, my))):
+                pygame.draw.rect(screen, black, storyModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, survivalModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, shopButton, 0, borderRadius)
+                pygame.draw.rect(screen, white, optionsButton, 0, borderRadius)
+                self.drawText("Story Mode",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Survival Mode",littleFont, white, screen, halfWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Shop",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                self.drawText("Options",littleFont, black, screen, halfWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)       
+                if(click):
+                    if(mouseLifted and optionsButton.collidepoint((storedX, storedY))):
+                        print("Options menu selected")
                         click = False
                     elif(mouseLifted):
                         click = False
                     
 
-            if(not startButton.collidepoint((mx, my)) and not shopButton.collidepoint((mx, my))):
-                pygame.draw.rect(screen, black, startButton, 0, borderRadius)
+            if(not shopButton.collidepoint((mx, my)) and not storyModeButton.collidepoint((mx, my)) 
+            and not survivalModeButton.collidepoint((mx, my)) and not optionsButton.collidepoint((mx, my))):
+                pygame.draw.rect(screen, black, storyModeButton, 0, borderRadius)
+                pygame.draw.rect(screen, black, survivalModeButton, 0, borderRadius)
                 pygame.draw.rect(screen, black, shopButton, 0, borderRadius)
-                self.drawText("Play",littleFont, white, screen, halfWindowWidth, firstButtonHeight+buttonHeight/2)
-                self.drawText("Shop",littleFont, white, screen, halfWindowWidth, secondButtonHeight+buttonHeight/2)
-            
+                pygame.draw.rect(screen, black, optionsButton, 0, borderRadius)
+                self.drawText("Story Mode",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Survival Mode",littleFont, white, screen, halfWindowWidth+buttonWidth/2, firstButtonHeight+buttonHeight/2)
+                self.drawText("Shop",littleFont, white, screen, fourthWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+                self.drawText("Options",littleFont, white, screen, halfWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
+
+
             mouseLifted = False
 
             for event in pygame.event.get():
@@ -83,6 +134,7 @@ class MainMenu:
                 if(event.type == MOUSEBUTTONDOWN):
                     if(event.button == 1):
                         click = True
+                        storedX, storedY = pygame.mouse.get_pos()
                 if(event.type == MOUSEBUTTONUP):
                     if(event.button == 1):
                         mouseLifted = True

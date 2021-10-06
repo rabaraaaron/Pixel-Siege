@@ -1,4 +1,4 @@
-from pygame.constants import MOUSEBUTTONDOWN
+from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import pygame
 import sys
 
@@ -21,38 +21,40 @@ class ShopMenu:
     def shopMenu(self):
         running = True
         click = False
+        mouseLifted = False
         black = (0, 0, 0)
         white = (255, 255, 255)
         bg = pygame.image.load("Assets/BG_PalmTree/cyberpunkShop.jpg")
         picture = pygame.transform.scale(bg, (1000, 600))
         backButtonYPos = 10
-        backButtonXPos = WINDOW_WIDTH-90
-        backButtonHeight = 20
-        backButtonWidth = 80
+        backButtonXPos = WINDOW_WIDTH-110
+        backButtonHeight = 25
+        backButtonWidth = 100
         littleFont = pygame.font.SysFont(None, 28)
-
-        
+        borderRadius = 5
+        storedX, storedY = 0, 0
 
         while(running):
 
             screen.blit(picture, (0, 0))
-
             mx, my = pygame.mouse.get_pos()
-
             backButton = pygame.Rect(backButtonXPos, backButtonYPos, backButtonWidth, backButtonHeight)
 
-
             if(backButton.collidepoint((mx, my))):
-                pygame.draw.rect(screen, white, backButton)
+                pygame.draw.rect(screen, white, backButton, 0, borderRadius)
                 self.drawText("Back", littleFont, black, screen, backButtonXPos+backButtonWidth/2, backButtonYPos+backButtonHeight/2)
                 if(click):
-                    running = False
+                    if(mouseLifted and backButton.collidepoint((storedX, storedY))):
+                        running = False
+                        click = False
+                    elif(mouseLifted):
+                        click = False
             else:
-                pygame.draw.rect(screen, black, backButton)
+                pygame.draw.rect(screen, black, backButton, 0, borderRadius)
                 self.drawText("Back", littleFont, white, screen, backButtonXPos+backButtonWidth/2, backButtonYPos+backButtonHeight/2)
 
 
-            click = False
+            mouseLifted = False
 
             for event in pygame.event.get():
                 if(event.type == pygame.QUIT):
@@ -60,5 +62,9 @@ class ShopMenu:
                 if(event.type == MOUSEBUTTONDOWN):
                     if(event.button == 1):
                         click = True
+                        storedX, storedY = pygame.mouse.get_pos()
+                if(event.type == MOUSEBUTTONUP):
+                    if(event.button == 1):
+                        mouseLifted = True
 
             pygame.display.update()

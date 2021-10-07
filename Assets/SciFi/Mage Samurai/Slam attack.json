@@ -1,0 +1,69 @@
+{
+    "frames": {
+        "Attack1.png":{
+            "frame": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack2.png":{
+            "frame": {"x": 0, "y": 96, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack3.png":{
+            "frame": {"x": 0, "y": 192, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack4.png":{
+            "frame": {"x": 0, "y": 288, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack5.png":{
+            "frame": {"x": 0, "y": 384, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack6.png":{
+            "frame": {"x": 0, "y": 480, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack7.png":{
+            "frame": {"x": 0, "y": 576, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack8.png":{
+            "frame": {"x": 0, "y": 672, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Attack9.png":{
+            "frame": {"x": 0, "y": 768, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        }
+    },
+    "size": 9,
+    "hold": 4
+}

@@ -11,6 +11,8 @@ class SpriteSheetConverter:
         with open(self.metaData) as f:
             self.data = json.load(f)
         f.close()
+        self.attackColor = self.data['color']
+
 
     def getSprite(self, x, y, w, h):
         black = (0, 0, 0)
@@ -37,3 +39,6 @@ class SpriteSheetConverter:
 
     def getHoldFrame(self):
         return self.data['hold']
+
+    def getAttackColor(self):
+        return self.attackColor

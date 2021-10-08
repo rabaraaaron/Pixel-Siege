@@ -10,6 +10,10 @@ class Character:
     self.holdFrame = self.converter.getHoldFrame()
     list = self.converter.getFrameNames()
     self.animationList = []
+    self.attacking = False
+    self.releasing = False
+    self.index = 0
+    self.color = self.converter.getAttackColor()
     for x in list:
       self.animationList.append(self.converter.parseSprite(x))
 
@@ -21,6 +25,7 @@ class Character:
 
   def setAnimationFileName(self, fName):
     self.fileName = fName
+    self.index = 0
     self.converter = SpriteSheetConverter(fName)
     list = self.converter.getFrameNames()
     self.holdFrame = self.converter.getHoldFrame()

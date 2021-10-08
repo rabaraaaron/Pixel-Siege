@@ -16,7 +16,7 @@ class PauseLoop:
 
     def pauseLoop(self, screen):
 
-        bg = pygame.image.load("Assets/BG_PalmTree/destroyedTown.jpg")
+        bg = pygame.image.load("Assets/BG_PalmTree/marsh.jpg")
         picture = pygame.transform.scale(bg, (1000, 600))
         screen.blit(picture, (0, 0))
         paused = True

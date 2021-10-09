@@ -20,8 +20,6 @@ yellow = (255, 255, 0)
 grey = (105, 105, 105)
 
 
-
-
 class StoryMode:
 
     def drawText(text, font, color, surface, x, y):
@@ -37,22 +35,9 @@ class StoryMode:
         pygame.draw.rect(screen, grey, pygame.Rect(barX, WINDOW_HEIGHT - barY, 104, 8), 3)
         pygame.draw.rect(screen, color,pygame.Rect(barX+2, WINDOW_HEIGHT - barY+2, playerShield/4, 4))
 
-    def findAngle(releasePoint, mouse):
-        try:
-            angle = math.atan((releasePoint[1] - mouse[1]) / (releasePoint[0] - mouse[0]))
-        except:
-            angle = math.pi / 2
 
-        if releasePoint[1] < mouse[1] and releasePoint[0] > mouse[0]:
-            angle = abs(angle)
-        elif releasePoint[1] < mouse[1] and releasePoint[0] < mouse[0]:
-            angle = math.pi - angle
-        elif releasePoint[1] > mouse[1] and releasePoint[0] < mouse[0]:
-            angle = math.pi + abs(angle)
-        elif releasePoint[1] > mouse[1] and releasePoint[0] > mouse[0]:
-            angle = (math.pi * 2) - angle
 
-        return angle
+        
 
 
     
@@ -72,9 +57,6 @@ class StoryMode:
         pauseButtonXPos = WINDOW_WIDTH-110
         borderRadius = 5
         storedX, storedY = 0, 0
-        releasePoint = (130, WINDOW_HEIGHT - 200)
-
-
 
         fileName = "Assets\SciFi\Mage Samurai\Idle.png"
         character = Character("mage samurai", fileName)
@@ -84,24 +66,20 @@ class StoryMode:
         frame = 0
         attackMeter = 0
         increasing = True
+        releasePoint = (130, WINDOW_HEIGHT - 200)
         projectileList = []
 
+        clock = pygame.time.Clock()
+        fps = 120
 
-        h = 0
         while(running):
-            h += 1
-            print(h)
+
+            clock.tick(fps)
             screen.blit(picture, (0, 0))
             screen.blit(character.animationList[character.index], (32, WINDOW_HEIGHT - 180))
-
-            mouse = pygame.mouse.get_pos()
-            rise = -(mouse[1] - releasePoint[1])
-            run = mouse[0] - releasePoint[0]
-
-            if(run != 0):
-                slope = rise/run
-                line = [releasePoint, slope]
             
+            ex, why = pygame.mouse.get_pos()
+            pygame.draw.line(screen, black, (releasePoint[0] + 61, releasePoint[1] + 60), (ex, why))
 
             color = (character.color['r'], character.color['g'], character.color['b'])
             self.drawAttackMeter(attackMeter, color)
@@ -111,14 +89,14 @@ class StoryMode:
                 elif(attackMeter == 0):
                     increasing = True
                 if(increasing):
-                    attackMeter += 1
+                    attackMeter += 5
                 elif(not increasing):
-                    attackMeter -= 1
+                    attackMeter -= 5
+            
             
 
-
-            frame = frame+1
-            if(frame == 100):
+            frame = frame+5
+            if(frame >= 100):
                 frame = 0
                 character.index = character.index + 1
                 if(character.index >= len(character.animationList) and not character.attacking and not character.releasing):
@@ -126,8 +104,7 @@ class StoryMode:
                 elif(character.index >= attackHold and character.attacking):
                     character.index = character.index - 1
                 elif(character.releasing):
-
-
+                    frame += 50
                     if(character.index >= len(character.animationList)):
                         character.releasing = False
                         character.index = 0
@@ -136,12 +113,10 @@ class StoryMode:
 
 
             for projectile in projectileList:
-                if(projectile.x > WINDOW_WIDTH):
+                if(projectile.x > WINDOW_WIDTH or projectile.y > WINDOW_HEIGHT):
                     projectileList.remove(projectile)
-                projectile.draw(screen)
-            
-            # print(len(projectileList))
-
+                projectile.projectilePath(screen)
+        
 
             mx, my = pygame.mouse.get_pos()
             pauseButton = pygame.Rect(pauseButtonXPos, pauseButtonYPos, pauseButtonWidth, pauseButtonHeight)
@@ -187,7 +162,6 @@ class StoryMode:
                             character.index = 0
                             fileName = "Assets\SciFi\Mage Samurai\Slam attack.png"
                             character.setAnimationFileName(fileName)
-                            character.animationList = character.animationList[:len(character.animationList)-len(character.animationList)-character.getHoldFrame()]
                 if(event.type == MOUSEBUTTONUP):
                     if(event.button == 1):
                         frame = 0
@@ -195,8 +169,10 @@ class StoryMode:
                         character.attacking = False
                         character.releasing = True
                         character.index = character.getHoldFrame()
+                        mousePos = pygame.mouse.get_pos()
+                        newProjectile = Projectile("08.png", releasePoint, mousePos, attackMeter/4)
+                        newProjectile.findAngle()
+                        projectileList.append(newProjectile)
                         attackMeter = 0
-                        projectileList.append(Projectile("08.png", releasePoint))
 
-                    
             pygame.display.update()

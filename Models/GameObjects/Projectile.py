@@ -30,7 +30,7 @@ class Projectile:
         # self.x = distX + self.x
         # self.y = distY + self.y
 
-        self.time += .02
+        self.time += .12
         gravity = 9.81
         vx = self.power * math.cos(self.angle)
         vy = self.power * math.sin(self.angle)
@@ -40,7 +40,7 @@ class Projectile:
         self.x = newX
         self.y = newY
 
-        screen.blit(self.image, (self.x, self.y))
+        screen.blit(self.image, (self.x-40, self.y-50))
 
 
     def findAngle(self):
@@ -53,7 +53,7 @@ class Projectile:
         try:
             angle = math.atan((sY - rY) / (sX - rX))
         except:
-            angle = math.pi / 2
+            angle = (math.pi / 2) * 3
 
         if rY < sY and rX > sX:
             angle = abs(angle)
@@ -64,5 +64,7 @@ class Projectile:
         elif rY > sY and rX > sX:
             angle = (math.pi * 2) - angle
 
+        if(angle == 0.0):
+            angle = math.pi
         self.angle = angle
         print(self.angle)

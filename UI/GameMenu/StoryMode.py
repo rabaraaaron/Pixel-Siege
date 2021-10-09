@@ -3,6 +3,7 @@ import pygame
 import sys
 from Models.GameObjects.Character import Character
 import math
+from Models.GameObjects.Enemy import Enemy
 from Models.GameObjects.Projectile import Projectile
 
 from UI.GameMenu.PauseLoop import PauseLoop
@@ -36,11 +37,6 @@ class StoryMode:
         pygame.draw.rect(screen, color,pygame.Rect(barX+2, WINDOW_HEIGHT - barY+2, playerShield/4, 4))
 
 
-
-        
-
-
-    
     def play(self, screen):
         
         running = True
@@ -58,15 +54,18 @@ class StoryMode:
         borderRadius = 5
         storedX, storedY = 0, 0
 
-        fileName = "Assets\SciFi\Mage Samurai\Idle.png"
-        character = Character("mage samurai", fileName)
-        character.setAnimationFileName(fileName)
+        characterFileName = "Assets\SciFi\Mage Samurai\Idle.png"
+        character = Character("mage samurai", characterFileName)
+        character.setAnimationFileName(characterFileName)
         attackHold = character.holdFrame
+
+        enemyFileName = "Assets\Droids\Sprites\Mecha\walk.png"
+        enemy = Enemy(WINDOW_WIDTH-150, WINDOW_HEIGHT*.75, "Droid", enemyFileName)
         
         frame = 0
         attackMeter = 0
         increasing = True
-        releasePoint = (130, WINDOW_HEIGHT - 200)
+        releasePoint = (130, WINDOW_HEIGHT - 160)
         projectileList = []
 
         clock = pygame.time.Clock()
@@ -77,10 +76,14 @@ class StoryMode:
             clock.tick(fps)
             screen.blit(picture, (0, 0))
             screen.blit(character.animationList[character.index], (32, WINDOW_HEIGHT - 180))
-            
-            ex, why = pygame.mouse.get_pos()
-            pygame.draw.line(screen, black, (releasePoint[0] + 61, releasePoint[1] + 60), (ex, why))
 
+            if not enemy.attacking:
+                enemy.x -= 1
+        
+            enemy.checkDirection()
+
+            screen.blit(enemy.animationList[enemy.index], (enemy.x, enemy.y))
+            
             color = (character.color['r'], character.color['g'], character.color['b'])
             self.drawAttackMeter(attackMeter, color)
             if(character.attacking):
@@ -98,7 +101,10 @@ class StoryMode:
             frame = frame+5
             if(frame >= 100):
                 frame = 0
-                character.index = character.index + 1
+                character.index += 1
+                enemy.index += 1
+                if(enemy.index >= len(enemy.animationList)):
+                    enemy.index = 0
                 if(character.index >= len(character.animationList) and not character.attacking and not character.releasing):
                     character.index = 0
                 elif(character.index >= attackHold and character.attacking):
@@ -108,8 +114,8 @@ class StoryMode:
                     if(character.index >= len(character.animationList)):
                         character.releasing = False
                         character.index = 0
-                        fileName = "Assets\SciFi\Mage Samurai\Idle.png"
-                        character.setAnimationFileName(fileName)
+                        characterFileName = "Assets\SciFi\Mage Samurai\Idle.png"
+                        character.setAnimationFileName(characterFileName)
 
 
             for projectile in projectileList:
@@ -160,8 +166,8 @@ class StoryMode:
                             character.attacking = True
                             character.releasing = False
                             character.index = 0
-                            fileName = "Assets\SciFi\Mage Samurai\Slam attack.png"
-                            character.setAnimationFileName(fileName)
+                            characterFileName = "Assets\SciFi\Mage Samurai\Slam attack.png"
+                            character.setAnimationFileName(characterFileName)
                 if(event.type == MOUSEBUTTONUP):
                     if(event.button == 1):
                         frame = 0
@@ -170,9 +176,10 @@ class StoryMode:
                         character.releasing = True
                         character.index = character.getHoldFrame()
                         mousePos = pygame.mouse.get_pos()
-                        newProjectile = Projectile("08.png", releasePoint, mousePos, attackMeter/4)
-                        newProjectile.findAngle()
-                        projectileList.append(newProjectile)
+                        if(len(projectileList) <= 10):
+                            newProjectile = Projectile("08.png", releasePoint, mousePos, attackMeter/4)
+                            newProjectile.findAngle()
+                            projectileList.append(newProjectile)
                         attackMeter = 0
 
             pygame.display.update()

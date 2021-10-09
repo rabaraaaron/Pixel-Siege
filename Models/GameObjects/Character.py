@@ -1,4 +1,4 @@
-from Models.SpriteSheetConverter import SpriteSheetConverter
+from Models.CharacterSpriteSheetConverter import CharacterSpriteSheetConverter
 
 
 class Character:
@@ -6,7 +6,7 @@ class Character:
   def __init__(self, cName, fName):
     self.characterName = cName
     self.fileName = fName
-    self.converter = SpriteSheetConverter(fName)
+    self.converter = CharacterSpriteSheetConverter(fName)
     self.holdFrame = self.converter.getHoldFrame()
     list = self.converter.getFrameNames()
     self.animationList = []
@@ -26,7 +26,7 @@ class Character:
   def setAnimationFileName(self, fName):
     self.fileName = fName
     self.index = 0
-    self.converter = SpriteSheetConverter(fName)
+    self.converter = CharacterSpriteSheetConverter(fName)
     list = self.converter.getFrameNames()
     self.holdFrame = self.converter.getHoldFrame()
     self.animationList = []

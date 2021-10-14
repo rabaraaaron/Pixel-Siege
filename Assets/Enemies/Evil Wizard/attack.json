@@ -1,0 +1,75 @@
+{
+    "frames": {
+        "attack1.png":{
+            "frame": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },
+        "attack2.png":{
+            "frame": {"x": 250, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },
+        "attack3.png":{
+            "frame": {"x": 500, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },
+        "attack4.png":{
+            "frame": {"x": 750, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },
+        "attack5.png":{
+            "frame": {"x": 100, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },
+        "attack6.png":{
+            "frame": {"x": 1250, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },"attack7.png":{
+            "frame": {"x": 1500, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        },
+        "attack8.png":{
+            "frame": {"x": 1750, "y": 0, "w": 250, "h": 250},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
+            "sourceSize": {"w": 250, "h": 250}
+        }
+
+    },
+    "size": 8,
+    "hold": 0,
+    "zoom": 1,
+    "color": {"r": 0, "g": 255, "b": 0},
+    "speed": 2,
+    "actualWidth": 100,
+    "actualHeight": 250,
+    "hitboxOffsetX": 30,
+    "hitboxOffsetY": 0,
+    "flying": "No",
+    "selfDestruct": 0,
+    "yOffscreen": 100,
+    "damageMultiplyer": 0.425,
+    "attack": 25
+
+}

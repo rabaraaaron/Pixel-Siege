@@ -1,0 +1,110 @@
+{
+    "frames": {
+        "Idle1.png":{
+            "frame": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle2.png":{
+            "frame": {"x": 0, "y": 96, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle3.png":{
+            "frame": {"x": 0, "y": 192, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle4.png":{
+            "frame": {"x": 0, "y": 288, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle5.png":{
+            "frame": {"x": 0, "y": 384, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle6.png":{
+            "frame": {"x": 0, "y": 480, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle7.png":{
+            "frame": {"x": 0, "y": 576, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle8.png":{
+            "frame": {"x": 0, "y": 672, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle9.png":{
+            "frame": {"x": 0, "y": 768, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle10.png":{
+            "frame": {"x": 0, "y": 864, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle11.png":{
+            "frame": {"x": 0, "y": 576, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle12.png":{
+            "frame": {"x": 0, "y": 672, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle13.png":{
+            "frame": {"x": 0, "y": 768, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        },
+        "Idle14.png":{
+            "frame": {"x": 0, "y": 864, "w": 290, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 290, "h": 96},
+            "sourceSize": {"w": 290, "h": 96}
+        }
+    },
+    "size": 14,
+    "hold": 4,
+    "color": {"r": 0, "g": 255, "b": 0},
+    "path": "Assets\\Characters\\Droid Assassin",
+    "zoom": 2,
+    "speed": 15,
+    "projectileColor": "Purple",
+    "projectileLevel": "1"
+}

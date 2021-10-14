@@ -1,0 +1,62 @@
+{
+    "frames": {
+        "walk1.png":{
+            "frame": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "sourceSize": {"w": 137, "h": 91}
+        },
+        "walk2.png":{
+            "frame": {"x": 0, "y": 91, "w": 137, "h": 91},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "sourceSize": {"w": 137, "h": 91}
+        },
+        "walk3.png":{
+            "frame": {"x": 0, "y": 182, "w": 137, "h": 91},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "sourceSize": {"w": 137, "h": 91}
+        },
+        "walk4.png":{
+            "frame": {"x": 0, "y": 273, "w": 137, "h": 91},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "sourceSize": {"w": 137, "h": 91}
+        },
+        "walk5.png":{
+            "frame": {"x": 0, "y": 364, "w": 137, "h": 91},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "sourceSize": {"w": 137, "h": 91}
+        },
+        "walk6.png":{
+            "frame": {"x": 0, "y": 455, "w": 137, "h": 91},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 137, "h": 91},
+            "sourceSize": {"w": 137, "h": 91}
+        }
+
+    },
+    "size": 6,
+    "hold": 0,
+    "zoom": 1,
+    "color": {"r": 0, "g": 255, "b": 0},
+    "speed": 0.75,
+    "actualWidth": 65,
+    "actualHeight": 45,
+    "hitboxOffsetX": 80,
+    "hitboxOffsetY": 50,
+    "flying": "Yes",
+    "selfDestruct": 0,
+    "yOffscreen": 50,
+    "damageMultiplyer": 0.5,
+    "attack": 10
+
+}

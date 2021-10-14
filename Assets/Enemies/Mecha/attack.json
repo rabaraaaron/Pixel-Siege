@@ -1,0 +1,47 @@
+{
+    "frames": {
+        "attack1.png":{
+            "frame": {"x": 0, "y": 1, "w": 135, "h": 58},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 135, "h": 58},
+            "sourceSize": {"w": 135, "h": 58}
+        },
+        "attack2.png":{
+            "frame": {"x": 0, "y": 61, "w": 135, "h": 58},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 135, "h": 58},
+            "sourceSize": {"w": 135, "h": 58}
+        },
+        "attack3.png":{
+            "frame": {"x": 0, "y": 121, "w": 135, "h": 58},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 135, "h": 58},
+            "sourceSize": {"w": 135, "h": 58}
+        },
+        "attack4.png":{
+            "frame": {"x": 0, "y": 181, "w": 135, "h": 58},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 135, "h": 58},
+            "sourceSize": {"w": 135, "h": 58}
+        }
+    },
+    "size": 4,
+    "hold": 0,
+    "zoom": 1,
+    "color": {"r": 0, "g": 255, "b": 0},
+    "speed": 0.5,
+    "actualWidth": 50,
+    "actualHeight": 58,
+    "hitboxOffsetX": 65,
+    "hitboxOffsetY": 0,
+    "flying": "No",
+    "selfDestruct": 1,
+    "yOffscreen": 0,
+    "damageMultiplyer": 0.2,
+    "attack": 20
+
+}

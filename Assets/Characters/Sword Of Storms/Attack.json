@@ -1,0 +1,75 @@
+{
+    "frames": {
+        "Idle1.png":{
+            "frame": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle2.png":{
+            "frame": {"x": 0, "y": 47, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle3.png":{
+            "frame": {"x": 0, "y": 94, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle4.png":{
+            "frame": {"x": 0, "y": 141, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle5.png":{
+            "frame": {"x": 0, "y": 188, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle6.png":{
+            "frame": {"x": 0, "y": 235, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle7.png":{
+            "frame": {"x": 0, "y": 282, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle8.png":{
+            "frame": {"x": 0, "y": 329, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        },
+        "Idle9.png":{
+            "frame": {"x": 0, "y": 376, "w": 134, "h": 47},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 134, "h": 47},
+            "sourceSize": {"w": 134, "h": 47}
+        }
+    },
+    "size": 9,
+    "hold": 4,
+    "color": {"r": 0, "g": 255, "b": 255},
+    "path": "Assets\\Characters\\Sword Of Storms",
+    "zoom": 1,
+    "speed": 8,
+    "projectileColor": "Teal",
+    "projectileLevel": "1"
+}

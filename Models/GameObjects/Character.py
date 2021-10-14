@@ -14,6 +14,7 @@ class Character:
     self.releasing = False
     self.index = 0
     self.color = self.converter.getAttackColor()
+    self.projectileColor = self.converter.projectileColor
     for x in list:
       self.animationList.append(self.converter.parseSprite(x))
 
@@ -36,6 +37,9 @@ class Character:
 
   def getHoldFrame(self):
     return self.holdFrame
+
+  def getAttackColor(self):
+    return (self.color['r', self.color['g'], self.color['b']])
 
   
 

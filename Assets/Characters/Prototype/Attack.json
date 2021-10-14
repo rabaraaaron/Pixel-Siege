@@ -1,0 +1,89 @@
+{
+    "frames": {
+        "Idle1.png":{
+            "frame": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle2.png":{
+            "frame": {"x": 160, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle3.png":{
+            "frame": {"x": 320, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle4.png":{
+            "frame": {"x": 480, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle5.png":{
+            "frame": {"x": 640, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle6.png":{
+            "frame": {"x": 800, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle7.png":{
+            "frame": {"x": 960, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle8.png":{
+            "frame": {"x": 1120, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle9.png":{
+            "frame": {"x": 1280, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle10.png":{
+            "frame": {"x": 1440, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        },
+        "Idle11.png":{
+            "frame": {"x": 1600, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96}
+        }
+    },
+    "size": 10,
+    "hold": 5,
+    "color": {"r": 255, "g": 53, "b": 184},
+    "path": "Assets\\Characters\\Prototype",
+    "zoom": 1,
+    "speed": 15,
+    "projectileColor": "Purple",
+    "projectileLevel": "1"
+}

@@ -1,0 +1,40 @@
+{
+    "frames": {
+        "Idle1.png":{
+            "frame": {"x": 0, "y": 1, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64}
+        },
+        "Idle2.png":{
+            "frame": {"x": 64, "y": 1, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64}
+        },
+        "Idle3.png":{
+            "frame": {"x": 128, "y": 1, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64}
+        },
+        "Idle4.png":{
+            "frame": {"x": 192, "y": 1, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64}
+        }
+    },
+    "size": 4,
+    "hold": 0,
+    "color": {"r": 252, "g": 15, "b": 192},
+    "path": "Assets\\Characters\\Enforcer",
+    "zoom": 2,
+    "speed": 4,
+    "projectileColor": "Pink",
+    "projectileLevel": "1"
+}

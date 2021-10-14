@@ -1,0 +1,40 @@
+{
+    "frames": {
+        "Idle1.png":{
+            "frame": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Idle2.png":{
+            "frame": {"x": 0, "y": 96, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Idle3.png":{
+            "frame": {"x": 0, "y": 192, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        },
+        "Idle4.png":{
+            "frame": {"x": 0, "y": 288, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96}
+        }
+    },
+    "size": 4,
+    "hold": 0,
+    "color": {"r": 0, "g": 255, "b": 0},
+    "path": "Assets\\Characters\\Mage Samurai",
+    "zoom": 2,
+    "speed": 4,
+    "projectileColor": "Green",
+    "projectileLevel": "1"
+}

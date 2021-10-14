@@ -1,3 +1,5 @@
+import json
+import pickle
 from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import pygame
 import sys
@@ -20,6 +22,8 @@ class GameMenu:
             surface.blit(textObject, textRec)
     
     def gameMenu(self):
+        
+
         running = True
         click = False
         mouseLifted = False
@@ -41,11 +45,40 @@ class GameMenu:
 
 
         while(running):
+
+            try:
+                with open('SaveData.p', 'rb') as handle:
+                    b = pickle.load(handle)
+                level = b['level']
+                characterName = b['characterPath']
+                gems = b['gems']
+                health = b['health']
+                handle.close()
+            except:
+                dictobj = {'level': 1, 'characterPath': "Sword Of Storms", 'gems': 0, 'health': 100}
+                filename = "SaveData.p"
+                fileobj = open(filename, 'wb')
+                pickle.dump(dictobj, fileobj)
+                fileobj.close()
+                level = dictobj['level']
+                characterName = dictobj['characterPath']
+                gems = dictobj['gems']
+                health = ['health']
+
+            jsonToRead = "level"+str(level)
+            with open("Models\\Levels\\"+jsonToRead+".json", 'r+') as f:
+                levelData = json.load(f)
+            level = levelData['level']
+            gemsEarnedPerKill = levelData['gemsPerKill']
+
+
             screen.blit(picture, (0, 0))
             mx, my = pygame.mouse.get_pos()
 
             beginButton = pygame.Rect(halfWindowWidth - 100, firstButtonHeight, bigButtonWidth, bigButtonHeight)
             backButton = pygame.Rect(backButtonXPos, backButtonYPos, backButtonWidth, backButtonHeight)
+            self.drawText("Level: " + str(level), font, black, screen, 110, 30)
+
 
             if(beginButton.collidepoint((mx, my))):
                 pygame.draw.rect(screen, white, beginButton, 0, borderRadius)

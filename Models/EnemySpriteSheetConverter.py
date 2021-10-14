@@ -5,10 +5,16 @@ class EnemySpriteSheetConverter:
 
     def __init__(self, fileName):
         self.fileName = fileName
-        self.spriteSheet = pygame.transform.rotozoom(pygame.image.load(self.fileName).convert(), 0, 1)
         self.metaData = self.fileName.replace('png', 'json')
         with open(self.metaData) as f:
             self.data = json.load(f)
+        self.zoom = self.data['zoom']
+        self.spriteSheet = pygame.transform.rotozoom(pygame.image.load(self.fileName).convert(), 0, self.zoom)
+        self.w, self.h = self.data['actualWidth'], self.data['actualHeight']
+        self.hitboxOffsetX = self.data["hitboxOffsetX"]
+        self.hitboxOffsetY = self.data["hitboxOffsetY"]
+        self.yOffscreen = self.data["yOffscreen"]
+        self.multiplyer = self.data['damageMultiplyer']
         f.close()
 
     def getSprite(self, x, y, w, h):
@@ -34,3 +40,15 @@ class EnemySpriteSheetConverter:
 
     def getFrameSize(self):
         return self.data['size']
+
+    def getSpeed(self):
+        return self.data['speed']
+    
+    def getWidthHeight(self):
+        return (self.w, self.h)
+
+    def getMultiplyer(self):
+        return self.multiplyer
+
+    def getDamage(self):
+        return self.data['attack']

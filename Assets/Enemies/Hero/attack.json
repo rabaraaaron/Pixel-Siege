@@ -1,0 +1,87 @@
+{
+    "frames": {
+        "attack1.png":{
+            "frame": {"x": 0, "y": 1, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack2.png":{
+            "frame": {"x": 0, "y": 64, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack3.png":{
+            "frame": {"x": 0, "y": 127, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack4.png":{
+            "frame": {"x": 0, "y": 190, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },"attack5.png":{
+            "frame": {"x": 0, "y": 253, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack6.png":{
+            "frame": {"x": 0, "y": 316, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack7.png":{
+            "frame": {"x": 0, "y": 379, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack8.png":{
+            "frame": {"x": 0, "y": 442, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },"attack9.png":{
+            "frame": {"x": 0, "y": 505, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        },
+        "attack10.png":{
+            "frame": {"x": 0, "y": 568, "w": 93, "h": 63},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 93, "h": 63},
+            "sourceSize": {"w": 93, "h": 63}
+        }
+    },
+    "size": 10,
+    "hold": 0,
+    "zoom": 1,
+    "color": {"r": 0, "g": 255, "b": 0},
+    "speed": 3,
+    "actualWidth": 30,
+    "actualHeight": 35,
+    "hitboxOffsetX": 40,
+    "hitboxOffsetY": 30,
+    "flying": "No",
+    "selfDestruct": 1,
+    "yOffscreen": 0,
+    "damageMultiplyer": 1.2,
+    "attack": 5
+
+}

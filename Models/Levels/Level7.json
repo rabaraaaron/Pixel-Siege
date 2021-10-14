@@ -1,0 +1,12 @@
+{
+    "level": 7,
+    "gemsPerKill": 2,
+    "round":{
+        "enemies": {
+            "enemy1": {"path": "Assets\\Enemies\\Mecha", "amount": 10},
+            "enemy2": {"path": "Assets\\Enemies\\Hero", "amount": 5}
+        },
+        "totalAmount": 15,
+        "amountOnScreen": 5
+    }
+}

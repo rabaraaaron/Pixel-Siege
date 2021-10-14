@@ -2,11 +2,15 @@ from pygame.constants import KEYDOWN, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import pygame
 import sys
 from Models.GameObjects.Character import Character
-import math
+import random
 from Models.GameObjects.Enemy import Enemy
 from Models.GameObjects.Projectile import Projectile
-
+import pickle
 from UI.GameMenu.PauseLoop import PauseLoop
+import json
+
+from UI.GameMenu.RoundCompletionPage import RoundCompletionPage
+from UI.GameMenu.RoundNotCompletedPage import RoundNotCompletedPage
 
 pygame.init()
 
@@ -31,14 +35,83 @@ class StoryMode:
 
     def drawAttackMeter(playerShield, color):
         barX = 50
-        barY = 100
+        barY = 88
  
         pygame.draw.rect(screen, grey, pygame.Rect(barX, WINDOW_HEIGHT - barY, 104, 8), 3)
         pygame.draw.rect(screen, color,pygame.Rect(barX+2, WINDOW_HEIGHT - barY+2, playerShield/4, 4))
 
+    def drawPlayerHealth(character, health):
+        barX = 50
+        barY = 100
+
+        pygame.draw.rect(screen, grey, pygame.Rect(barX, WINDOW_HEIGHT - barY, 104, 8), 3)
+        pygame.draw.rect(screen, red, pygame.Rect(barX+2, WINDOW_HEIGHT - barY+2, health, 4))
+
+    def drawEnemyHealth(enemy):
+        barX = enemy.x
+        barY = enemy.y
+
+        pygame.draw.rect(screen, grey, pygame.Rect(barX, barY, 104, 8), 3)
+        pygame.draw.rect(screen, red, pygame.Rect(barX+2, barY+2, enemy.health, 4))
 
     def play(self, screen):
+
+        #TODO: Still need to add the different projectiles or shot styles that the player bought
+        try:
+            with open('SaveData.p', 'rb') as handle:
+                b = pickle.load(handle)
+            level = b['level']
+            characterName = b['characterPath']
+            gems = b['gems']
+            originalHealth = b['health']
+            health = b['health']
+            handle.close()
+        except:
+            dictobj = {'level': 1, 'characterPath': "Sword Of Storms", 'gems': 0, 'health': 100}
+            filename = "SaveData.p"
+            fileobj = open(filename, 'wb')
+            pickle.dump(dictobj, fileobj)
+            fileobj.close()
+            level = dictobj['level']
+            characterName = dictobj['characterPath']
+            gems = dictobj['gems']
+            originalHealth = dictobj['health']
+            health = dictobj['health']
+
+        jsonToRead = "level"+str(level)
+        with open("Models\\Levels\\"+jsonToRead+".json", 'r+') as f:
+            levelData = json.load(f)
+        level = levelData['level']
+        gemsEarnedPerKill = levelData['gemsPerKill']
+        enemies = levelData['round']['enemies']
+        enemyPaths = []
+        enemyAmount = levelData['round']['totalAmount']
+        enemyAmountDictionary = {}
+        enemyAmountOnScreen = levelData['round']['amountOnScreen']
+        for enemy in enemies:
+            enemyPaths.append(enemies[enemy]['path'])
+            enemyAmountDictionary[enemies[enemy]['path']] = enemies[enemy]['amount']
+            
+
+        waiting = False
+        roundComplete = False
+        enemiesKilled = 0
+        enemyList = []
+        enemyWaitingList = []
+        for x in range(0, enemyAmount):
+            enemyY = random.randint(WINDOW_HEIGHT/2 + 50, WINDOW_HEIGHT-60)
+            added = False
+            while not added:
+                enemyPath = random.randint(0, len(enemyPaths) - 1)
+                if enemyAmountDictionary[enemyPaths[enemyPath]] >= 1:
+                    enemyAmountDictionary[enemyPaths[enemyPath]] -= 1
+                    added = True
+            
+            enemyFileName = enemyPaths[enemyPath] + "\walk.png"
+            enemy = Enemy(WINDOW_WIDTH, enemyY, enemyFileName)
+            enemyWaitingList.append(enemy)
         
+        buffer = False
         running = True
         click = False
         mouseLifted = False
@@ -46,6 +119,7 @@ class StoryMode:
         picture = pygame.transform.scale(bg, (1000, 600))
         white = (255, 255, 255)
         black = (0, 0, 0)
+        blue = (0, 0, 255)
         littleFont = pygame.font.SysFont(None, 28)
         pauseButtonHeight = 25
         pauseButtonWidth = 100
@@ -54,38 +128,86 @@ class StoryMode:
         borderRadius = 5
         storedX, storedY = 0, 0
 
-        characterFileName = "Assets\SciFi\Mage Samurai\Idle.png"
-        character = Character("mage samurai", characterFileName)
+        characterFileName = "Assets\Characters\\"+ characterName+"\Idle.png"
+        character = Character(characterName, characterFileName)
         character.setAnimationFileName(characterFileName)
-        attackHold = character.holdFrame
 
-        enemyFileName = "Assets\Droids\Sprites\Mecha\walk.png"
-        enemy = Enemy(WINDOW_WIDTH-150, WINDOW_HEIGHT*.75, "Droid", enemyFileName)
         
+
         frame = 0
+        characterFrame = 0
         attackMeter = 0
         increasing = True
-        releasePoint = (130, WINDOW_HEIGHT - 160)
+        releasePoint = (110, WINDOW_HEIGHT - 140)
         projectileList = []
 
         clock = pygame.time.Clock()
-        fps = 120
+        fps = 140
 
-        while(running):
+        while running:
+
+            if health <= 0 and not roundComplete:
+                roundComplete = True
+                running = False
+                gameState = RoundNotCompletedPage.roundFailed(RoundNotCompletedPage, enemiesKilled)
+
+                try:
+                    dict = {'level': level, 'characterPath': characterName, 'gems': gems, 'health': originalHealth}
+                    filename = "SaveData.p"
+                    file = open(filename, 'wb')
+                    pickle.dump(dict, file)
+                    file.close()
+                except:
+                    print("problem saving game data")
+                if(gameState == 0):
+                    ### Go to the next level screen for GameScreenPage
+                    return True
+                elif(gameState == 1):
+                    ### Go back to the main menu
+                    return False
+
+            if enemiesKilled == enemyAmount and not roundComplete:
+                roundComplete = True
+                running = False
+                
+                gameState = RoundCompletionPage.roundComplete(RoundCompletionPage)
+                try:
+                    level += 1
+
+                    dict = {'level': level, 'characterPath': characterName, 'gems': gems, 'health': originalHealth}
+                    filename = "SaveData.p"
+                    file = open(filename, 'wb')
+                    pickle.dump(dict, file)
+                    file.close()
+    
+                except:
+                    print("problem saving game data")
+                if(gameState == 0):
+                    ### Go to the next level screen for GameScreenPage
+                    return True
+                elif(gameState == 1):
+                    ### Go back to the main menu
+                    return False
+
+                
+                
+                
+
+
+            if(len(enemyList) < enemyAmountOnScreen and len(enemyWaitingList) != 0 and not waiting):
+                waiting = True
+                enemyList.append(enemyWaitingList[0])
+                enemyWaitingList.remove(enemyWaitingList[0])
 
             clock.tick(fps)
             screen.blit(picture, (0, 0))
             screen.blit(character.animationList[character.index], (32, WINDOW_HEIGHT - 180))
+            self.drawText("Level: " + str(level), font, black, screen, 110, 30)
 
-            if not enemy.attacking:
-                enemy.x -= 1
-        
-            enemy.checkDirection()
-
-            screen.blit(enemy.animationList[enemy.index], (enemy.x, enemy.y))
-            
             color = (character.color['r'], character.color['g'], character.color['b'])
             self.drawAttackMeter(attackMeter, color)
+            self.drawPlayerHealth(character, health)
+            
             if(character.attacking):
                 if(attackMeter == 400):
                     increasing = False
@@ -96,33 +218,63 @@ class StoryMode:
                 elif(not increasing):
                     attackMeter -= 5
             
-            
 
-            frame = frame+5
+            frame = frame + 5
             if(frame >= 100):
+                waiting = False
                 frame = 0
+                # if(character.index < character.converter.getHoldFrame()):
+                #     buffer = False
+                for enemy in enemyList:
+                    enemy.index += 1
+                    if(enemy.index >= len(enemy.animationList)):
+                        enemy.index = 0
+                        if enemy.attacking:
+                            health -= enemy.damage
+                
+            characterFrame = characterFrame + (1 * character.converter.speed)
+            if(characterFrame >= 100):
                 character.index += 1
-                enemy.index += 1
-                if(enemy.index >= len(enemy.animationList)):
-                    enemy.index = 0
+                characterFrame = 0
                 if(character.index >= len(character.animationList) and not character.attacking and not character.releasing):
                     character.index = 0
-                elif(character.index >= attackHold and character.attacking):
+                elif(character.index >= character.getHoldFrame() and character.attacking):
                     character.index = character.index - 1
                 elif(character.releasing):
-                    frame += 50
                     if(character.index >= len(character.animationList)):
                         character.releasing = False
                         character.index = 0
-                        characterFileName = "Assets\SciFi\Mage Samurai\Idle.png"
+                        characterFileName = "Assets\Characters\\" + characterName + "\Idle.png"
                         character.setAnimationFileName(characterFileName)
 
 
             for projectile in projectileList:
-                if(projectile.x > WINDOW_WIDTH or projectile.y > WINDOW_HEIGHT):
-                    projectileList.remove(projectile)
-                projectile.projectilePath(screen)
-        
+                for enemy in enemyList:
+                    if enemy.hitBy((projectile.x, projectile.y), projectile.width, projectile.height):
+                        try:
+                            enemy.takeDamage(projectile.power * enemy.multiplyer)
+                            projectileList.remove(projectile)
+                            if enemy.health < 0:
+                                enemyList.remove(enemy)
+                                enemiesKilled += 1
+                                gems += gemsEarnedPerKill
+                        except:
+                            print("trying to access projectile that was removed")
+
+                
+                try:
+                    if(projectile.x > WINDOW_WIDTH or projectile.y > WINDOW_HEIGHT):
+                        projectileList.remove(projectile)
+                    projectile.projectilePath(screen)
+                except:
+                    print("trouble deleting the projectile off screen")
+
+            for enemy in enemyList:
+                self.drawEnemyHealth(enemy)
+                enemy.checkPosition()
+                enemy.updatePosition()
+                screen.blit(enemy.animationList[enemy.index], (enemy.x, enemy.y))
+                pygame.draw.rect(screen, grey,pygame.Rect(enemy.x+enemy.hitboxOffsetX, enemy.y + enemy.hitboxOffsetY, enemy.w, enemy.h), 2)
 
             mx, my = pygame.mouse.get_pos()
             pauseButton = pygame.Rect(pauseButtonXPos, pauseButtonYPos, pauseButtonWidth, pauseButtonHeight)
@@ -155,29 +307,34 @@ class StoryMode:
             mouseLifted = False
 
             for event in pygame.event.get():
-                if(event.type == pygame.QUIT):
+                if event.type == pygame.QUIT:
                     sys.exit()
-                if(event.type == MOUSEBUTTONDOWN):
-                    if(event.button == 1):
-                        frame = 0
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        enemyY = random.randint(WINDOW_HEIGHT/2 + 50, WINDOW_HEIGHT-60)
+                        enemyFileName = "Assets\Enemies\Stormhead\walk.png"
+                        enemy = Enemy(WINDOW_WIDTH, enemyY, enemyFileName)
+                        enemyList.append(enemy)
+                if event.type == MOUSEBUTTONDOWN:
+                    if event.button == 1 and not character.attacking:
                         storedX, storedY = pygame.mouse.get_pos()
                         click = True
-                        if(not pauseButton.collidepoint((mx, my))):
+                        buffer = True
+                        if not pauseButton.collidepoint((mx, my)):
                             character.attacking = True
                             character.releasing = False
                             character.index = 0
-                            characterFileName = "Assets\SciFi\Mage Samurai\Slam attack.png"
+                            characterFileName = "Assets\Characters\\" + characterName + "\Attack.png"
                             character.setAnimationFileName(characterFileName)
-                if(event.type == MOUSEBUTTONUP):
-                    if(event.button == 1):
-                        frame = 0
+                if event.type == MOUSEBUTTONUP:
+                    if event.button == 1:
                         mouseLifted = True
                         character.attacking = False
                         character.releasing = True
                         character.index = character.getHoldFrame()
                         mousePos = pygame.mouse.get_pos()
-                        if(len(projectileList) <= 10):
-                            newProjectile = Projectile("08.png", releasePoint, mousePos, attackMeter/4)
+                        if len(projectileList) <= 10:
+                            newProjectile = Projectile("1.png", character.projectileColor, releasePoint, mousePos, attackMeter/4)
                             newProjectile.findAngle()
                             projectileList.append(newProjectile)
                         attackMeter = 0

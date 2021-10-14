@@ -1,0 +1,96 @@
+{
+    "frames": {
+        "Attack1.png":{
+            "frame": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack2.png":{
+            "frame": {"x": 160, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack3.png":{
+            "frame": {"x": 320, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack4.png":{
+            "frame": {"x": 480, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack5.png":{
+            "frame": {"x": 640, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack6.png":{
+            "frame": {"x": 800, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack7.png":{
+            "frame": {"x": 960, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack8.png":{
+            "frame": {"x": 1120, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack9.png":{
+            "frame": {"x": 1280, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack10.png":{
+            "frame": {"x": 1440, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack11.png":{
+            "frame": {"x": 1600, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        },
+        "Attack12.png":{
+            "frame": {"x": 1760, "y": 0, "w": 160, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 160, "h": 96},
+            "sourceSize": {"w": 160, "h": 96}
+        }
+    },
+    "size": 12,
+    "hold": 5,
+    "color": {"r": 252, "g": 15, "b": 192},
+    "path": "Assets\\Characters\\Enforcer",
+    "zoom": 1,
+    "speed": 20,
+    "projectileColor": "Pink",
+    "projectileLevel": "1"
+}

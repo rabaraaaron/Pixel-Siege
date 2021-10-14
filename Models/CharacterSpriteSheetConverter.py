@@ -6,12 +6,15 @@ class CharacterSpriteSheetConverter:
 
     def __init__(self, fileName):
         self.fileName = fileName
-        self.spriteSheet = pygame.transform.rotozoom(pygame.image.load(self.fileName).convert(), 0, 2)
         self.metaData = self.fileName.replace('png', 'json')
         with open(self.metaData) as f:
             self.data = json.load(f)
         f.close()
+        self.zoom = self.data['zoom']
+        self.spriteSheet = pygame.transform.rotozoom(pygame.image.load(self.fileName).convert_alpha(), 0, self.zoom)
         self.attackColor = self.data['color']
+        self.speed = self.data["speed"]
+        self.projectileColor = self.data['projectileColor']
 
 
     def getSprite(self, x, y, w, h):

@@ -3,9 +3,9 @@
     "gemsPerKill": 1,
     "round":{
         "enemies": {
-            "enemy1": {"path": "Assets\\Enemies\\Mecha", "amount": 5}
+            "enemy1": {"path": "Assets\\Enemies\\Shock Sweeper", "amount": 1}
         },
-        "totalAmount": 5,
+        "totalAmount": 1,
         "amountOnScreen": 2
     }
 }

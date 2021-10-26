@@ -6,8 +6,10 @@ import random
 from Models.GameObjects.Enemy import Enemy
 from Models.GameObjects.Projectile import Projectile
 import pickle
+from Models.GameSounds import GameSounds
 from UI.GameMenu.PauseLoop import PauseLoop
 import json
+import time
 
 from UI.GameMenu.RoundCompletionPage import RoundCompletionPage
 from UI.GameMenu.RoundNotCompletedPage import RoundNotCompletedPage
@@ -48,11 +50,13 @@ class StoryMode:
         pygame.draw.rect(screen, red, pygame.Rect(barX+2, WINDOW_HEIGHT - barY+2, health, 4))
 
     def drawEnemyHealth(enemy):
-        barX = enemy.x
-        barY = enemy.y
+        barX = enemy.x + enemy.healthBarOffsetX
+        barY = enemy.y + enemy.healthBarOffsetY
 
         pygame.draw.rect(screen, grey, pygame.Rect(barX, barY, 104, 8), 3)
-        pygame.draw.rect(screen, red, pygame.Rect(barX+2, barY+2, enemy.health, 4))
+        pygame.draw.rect(screen, red, pygame.Rect(barX+2, barY+2, enemy.health, 4))  
+
+    
 
     def play(self, screen):
 
@@ -132,7 +136,6 @@ class StoryMode:
         character = Character(characterName, characterFileName)
         character.setAnimationFileName(characterFileName)
 
-        
 
         frame = 0
         characterFrame = 0
@@ -144,32 +147,34 @@ class StoryMode:
         clock = pygame.time.Clock()
         fps = 140
 
+        fade = 1000
+        sounds = GameSounds()
+        pygame.mixer.init()
+        battleSound = pygame.mixer.Sound(sounds.getRandomBattleSong())
+        battleSound.set_volume(.5)
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound(sounds.getRandomBattleSong()))
+
+        died = False
+        fadeAlpha = 0
+        fadeScreen = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT)) 
+        fadeScreen.fill(black)
+
         while running:
-
-            if health <= 0 and not roundComplete:
-                roundComplete = True
-                running = False
-                gameState = RoundNotCompletedPage.roundFailed(RoundNotCompletedPage, enemiesKilled)
-
-                try:
-                    dict = {'level': level, 'characterPath': characterName, 'gems': gems, 'health': originalHealth}
-                    filename = "SaveData.p"
-                    file = open(filename, 'wb')
-                    pickle.dump(dict, file)
-                    file.close()
-                except:
-                    print("problem saving game data")
-                if(gameState == 0):
-                    ### Go to the next level screen for GameScreenPage
-                    return True
-                elif(gameState == 1):
-                    ### Go back to the main menu
-                    return False
-
-            if enemiesKilled == enemyAmount and not roundComplete:
-                roundComplete = True
-                running = False
                 
+
+            #Player Died
+            if health <= 0 and not roundComplete:
+                died = True
+                health = 0
+                roundComplete = True
+                
+
+            #Player won
+            if enemiesKilled == enemyAmount and not died:
+                roundComplete = True
+                running = False
+
+                pygame.mixer.Channel(0).fadeout(fade + 1000)
                 gameState = RoundCompletionPage.roundComplete(RoundCompletionPage)
                 try:
                     level += 1
@@ -189,16 +194,14 @@ class StoryMode:
                     ### Go back to the main menu
                     return False
 
-                
-                
-                
 
-
+            #Dont exceed enemy limit on screen
             if(len(enemyList) < enemyAmountOnScreen and len(enemyWaitingList) != 0 and not waiting):
                 waiting = True
                 enemyList.append(enemyWaitingList[0])
                 enemyWaitingList.remove(enemyWaitingList[0])
 
+            #Draw screen and character
             clock.tick(fps)
             screen.blit(picture, (0, 0))
             screen.blit(character.animationList[character.index], (32, WINDOW_HEIGHT - 180))
@@ -207,7 +210,8 @@ class StoryMode:
             color = (character.color['r'], character.color['g'], character.color['b'])
             self.drawAttackMeter(attackMeter, color)
             self.drawPlayerHealth(character, health)
-            
+
+            #manage attack meter
             if(character.attacking):
                 if(attackMeter == 400):
                     increasing = False
@@ -218,20 +222,24 @@ class StoryMode:
                 elif(not increasing):
                     attackMeter -= 5
             
-
+            #Increment enemy frame index and player health
             frame = frame + 5
-            if(frame >= 100):
+            if frame >= 100 :
                 waiting = False
                 frame = 0
-                # if(character.index < character.converter.getHoldFrame()):
-                #     buffer = False
                 for enemy in enemyList:
                     enemy.index += 1
-                    if(enemy.index >= len(enemy.animationList)):
+                    if enemy.index >= len(enemy.animationList):
+                        if enemy.selfDestruct == 1 and enemy.attacking:
+                            enemyList.remove(enemy)
                         enemy.index = 0
-                        if enemy.attacking:
-                            health -= enemy.damage
-                
+                        
+                        
+                    if enemy.index == enemy.attackFrame and enemy.attacking:
+                        health -= enemy.damage
+                        
+            
+            #Update character frames
             characterFrame = characterFrame + (1 * character.converter.speed)
             if(characterFrame >= 100):
                 character.index += 1
@@ -247,11 +255,14 @@ class StoryMode:
                         characterFileName = "Assets\Characters\\" + characterName + "\Idle.png"
                         character.setAnimationFileName(characterFileName)
 
-
+            #Projectile hit detection
             for projectile in projectileList:
                 for enemy in enemyList:
                     if enemy.hitBy((projectile.x, projectile.y), projectile.width, projectile.height):
                         try:
+                            hitSound = pygame.mixer.Sound('Assets\Sounds\Effects\hit.wav')
+                            hitSound.set_volume(3.0)
+                            pygame.mixer.Channel(2).play(hitSound)
                             enemy.takeDamage(projectile.power * enemy.multiplyer)
                             projectileList.remove(projectile)
                             if enemy.health < 0:
@@ -261,7 +272,6 @@ class StoryMode:
                         except:
                             print("trying to access projectile that was removed")
 
-                
                 try:
                     if(projectile.x > WINDOW_WIDTH or projectile.y > WINDOW_HEIGHT):
                         projectileList.remove(projectile)
@@ -269,16 +279,18 @@ class StoryMode:
                 except:
                     print("trouble deleting the projectile off screen")
 
+            #Drawing enemies on screen
             for enemy in enemyList:
                 self.drawEnemyHealth(enemy)
                 enemy.checkPosition()
                 enemy.updatePosition()
                 screen.blit(enemy.animationList[enemy.index], (enemy.x, enemy.y))
-                pygame.draw.rect(screen, grey,pygame.Rect(enemy.x+enemy.hitboxOffsetX, enemy.y + enemy.hitboxOffsetY, enemy.w, enemy.h), 2)
+                # Draws the hitbox: pygame.draw.rect(screen, grey, pygame.Rect(enemy.x+enemy.hitboxOffsetX, enemy.y + enemy.hitboxOffsetY, enemy.w, enemy.h), 2)
 
             mx, my = pygame.mouse.get_pos()
             pauseButton = pygame.Rect(pauseButtonXPos, pauseButtonYPos, pauseButtonWidth, pauseButtonHeight)
 
+            #Pause button
             if(pauseButton.collidepoint((mx, my))):
                 pygame.draw.rect(screen, white, pauseButton, 0, borderRadius)
 
@@ -286,6 +298,7 @@ class StoryMode:
 
                 if(click):
                     if(mouseLifted and pauseButton.collidepoint((storedX, storedY))):
+                        pygame.mixer.Channel(0).fadeout(fade)
                         gameState = PauseLoop.pauseLoop(PauseLoop, screen)
                         if(gameState == 0):
                             ### unpause the game
@@ -306,6 +319,39 @@ class StoryMode:
 
             mouseLifted = False
 
+            #Draw fading screen
+            if died:
+                fadeAlpha += 1
+                fadeScreen.set_alpha(fadeAlpha)
+                screen.blit(fadeScreen, (0, 0))
+
+            #Start sound fading
+            if fadeAlpha == 1:
+                pygame.mixer.Channel(3).play(pygame.mixer.Sound('Assets\Sounds\Effects\death.wav'))
+                pygame.mixer.Channel(0).fadeout(fade)
+                
+            #Screen transition to post round screen
+            if fadeAlpha == 300:
+                time.sleep(.62)
+                gameState = RoundNotCompletedPage.roundFailed(RoundNotCompletedPage, enemiesKilled)
+
+                try:
+                    dict = {'level': level, 'characterPath': characterName, 'gems': gems, 'health': originalHealth}
+                    filename = "SaveData.p"
+                    file = open(filename, 'wb')
+                    pickle.dump(dict, file)
+                    file.close()
+                except:
+                    print("problem saving game data")
+                if(gameState == 0):
+                    ### Go to the next level screen for GameScreenPage
+                    return True
+                elif(gameState == 1):
+                    ### Go back to the main menu
+                    return False    
+
+
+            #Handle input events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -316,7 +362,7 @@ class StoryMode:
                         enemy = Enemy(WINDOW_WIDTH, enemyY, enemyFileName)
                         enemyList.append(enemy)
                 if event.type == MOUSEBUTTONDOWN:
-                    if event.button == 1 and not character.attacking:
+                    if event.button == 1 and not character.attacking and not died:
                         storedX, storedY = pygame.mouse.get_pos()
                         click = True
                         buffer = True
@@ -327,7 +373,7 @@ class StoryMode:
                             characterFileName = "Assets\Characters\\" + characterName + "\Attack.png"
                             character.setAnimationFileName(characterFileName)
                 if event.type == MOUSEBUTTONUP:
-                    if event.button == 1:
+                    if event.button == 1 and not died:
                         mouseLifted = True
                         character.attacking = False
                         character.releasing = True
@@ -337,6 +383,7 @@ class StoryMode:
                             newProjectile = Projectile("1.png", character.projectileColor, releasePoint, mousePos, attackMeter/4)
                             newProjectile.findAngle()
                             projectileList.append(newProjectile)
+                            pygame.mixer.Channel(1).play(pygame.mixer.Sound('Assets\\Sounds\\Effects\\attack.wav'))
                         attackMeter = 0
 
             pygame.display.update()

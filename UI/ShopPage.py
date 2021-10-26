@@ -34,6 +34,11 @@ class ShopMenu:
         borderRadius = 5
         storedX, storedY = 0, 0
 
+        fade = 1000
+        pygame.mixer.init()
+        pygame.mixer.music.load('Assets\Sounds\Shop\shop.wav')
+        pygame.mixer.music.play(loops=-1)
+
         while(running):
 
             screen.blit(picture, (0, 0))
@@ -45,6 +50,7 @@ class ShopMenu:
                 self.drawText("Back", littleFont, black, screen, backButtonXPos+backButtonWidth/2, backButtonYPos+backButtonHeight/2)
                 if(click):
                     if(mouseLifted and backButton.collidepoint((storedX, storedY))):
+                        pygame.mixer.music.fadeout(fade)
                         running = False
                         click = False
                     elif(mouseLifted):

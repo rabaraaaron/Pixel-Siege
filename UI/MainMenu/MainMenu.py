@@ -3,6 +3,7 @@ from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 from UI.GameMenu.GameScreenPage import GameMenu
 from UI.ShopPage import ShopMenu
 
+
 class MainMenu:
 
     def drawText(text, font, color, surface, x, y):
@@ -33,7 +34,12 @@ class MainMenu:
         halfWindowWidth = WINDOW_WIDTH/2
         fourthWindowWidth = WINDOW_WIDTH/4 + 40
         storedX, storedY = 0, 0
-        
+
+        fade = 1000
+        pygame.mixer.init()
+        pygame.mixer.music.load('Assets\Sounds\MainMenu.wav')
+        pygame.mixer.music.play(loops=-1)
+
 
         while(running):
             screen.blit(picture, (0, 0))
@@ -60,7 +66,12 @@ class MainMenu:
                 
                 if(click):
                     if(mouseLifted and storyModeButton.collidepoint((storedX, storedY))):
+                        pygame.mixer.music.load('Assets\Sounds\Effects\whoosh.wav')
+                        pygame.mixer.music.play(loops=-1)
+                        pygame.mixer.music.fadeout(fade)
                         GameMenu.gameMenu(GameMenu)
+                        pygame.mixer.music.load('Assets\Sounds\MainMenu.wav')
+                        pygame.mixer.music.play(loops=-1)
                         click = False
                     elif(mouseLifted):
                         click = False
@@ -92,7 +103,10 @@ class MainMenu:
                 self.drawText("Options",littleFont, white, screen, halfWindowWidth+buttonWidth/2, secondButtonHeight+buttonHeight/2)
                 if(click):
                     if(mouseLifted and shopButton.collidepoint((storedX, storedY))):
+                        pygame.mixer.music.fadeout(fade)
                         ShopMenu.shopMenu(ShopMenu)
+                        pygame.mixer.music.load('Assets\Sounds\MainMenu.wav')
+                        pygame.mixer.music.play(loops=-1)
                         click = False
                     elif(mouseLifted):
                         click = False

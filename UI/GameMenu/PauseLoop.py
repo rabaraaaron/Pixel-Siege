@@ -75,7 +75,7 @@ class PauseLoop:
                 pygame.draw.rect(screen, white, toMenuButton, 0, borderRadius)
                 self.drawText("Resume", littleFont, white, screen, littleButtonXPos+littleButtonWidth/2, littleButtonYPos+littleButtonHeight/2)
                 self.drawText("Restart", littleFont, white, screen, littleButtonXPos+littleButtonWidth/2, littleButtonYPos+littleButtonHeight/2+30)
-                self.drawText("To Menu", littleFont, black, screen, littleButtonXPos+littleButtonWidth/2, littleButtonYPos+littleButtonHeight/2+60)
+                self.drawText("Menu", littleFont, black, screen, littleButtonXPos+littleButtonWidth/2, littleButtonYPos+littleButtonHeight/2+60)
                 if(click):
                     if(mouseLifted and toMenuButton.collidepoint((storedX, storedY))):
                         click = False

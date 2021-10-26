@@ -62,15 +62,18 @@
     "hold": 0,
     "zoom": 1,
     "color": {"r": 0, "g": 255, "b": 0},
-    "speed": 0.15,
+    "speed": 0.2,
     "actualWidth": 40,
     "actualHeight": 30,
     "hitboxOffsetX": 40,
     "hitboxOffsetY": 3,
+    "healthBarOffsetX": 5,
+    "healthBarOffsetY": -5,
     "flying": "No",
     "selfDestruct": 0,
     "yOffscreen": 0,
     "damageMultiplyer": 1.5,
-    "attack": 100
+    "attack": 100,
+    "attackFrame": 3
 
 }

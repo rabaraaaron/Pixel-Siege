@@ -25,6 +25,9 @@ class Enemy:
         self.multiplyer = self.converter.getMultiplyer()
         self.health = 100
         self.damage = self.converter.getDamage()
+        self.healthBarOffsetX, self.healthBarOffsetY = self.converter.getHealthBarOffset()
+        self.attackFrame = self.converter.attackFrame
+        self.selfDestruct = self.converter.selfDestruct
 
     def takeDamage(self, damage):
         self.health -= damage

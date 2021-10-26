@@ -4,6 +4,8 @@ from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import pygame
 import sys
 
+from Models.GemSpriteSheetConverter import GemSpriteSheetConverter
+
 pygame.init()
 
 WINDOW_HEIGHT = 600
@@ -14,10 +16,14 @@ font = pygame.font.SysFont(None, 75)
 
 class RoundNotCompletedPage:
 
-    def drawText(text, font, color, surface, x, y):
+    def drawText(text, font, color, surface, x, y, center):
             textObject = font.render(text, 1, color)
             textRec = textObject.get_rect()
-            textRec.center = (x, y)
+            if center:
+                textRec.center = (x, y)
+            else:
+                textRec.topLeft = (x, y)
+            surface.blit(textObject, textRec)
             surface.blit(textObject, textRec)
     
     def roundFailed(self, enemiesKilled):
@@ -51,8 +57,10 @@ class RoundNotCompletedPage:
         littleFont = pygame.font.SysFont(None, 28)
         bigButtonHeight = 25
         bigButtonWidth = 100
+        messageBoardWidth = 250
+        messageBoardHeight = 300
         halfWindowWidth = WINDOW_WIDTH/2
-        firstButtonHeight = WINDOW_HEIGHT/2
+        firstButtonHeight = (WINDOW_HEIGHT/4) * 3
         storedX, storedY = 0, 0
 
 
@@ -63,17 +71,25 @@ class RoundNotCompletedPage:
             retryButton = pygame.Rect(halfWindowWidth - 125, firstButtonHeight, bigButtonWidth, bigButtonHeight)
             menuButton = pygame.Rect(halfWindowWidth + 25, firstButtonHeight, bigButtonWidth, bigButtonHeight)
 
+            messagebackground = pygame.Rect(halfWindowWidth - messageBoardWidth/2, WINDOW_HEIGHT/5, messageBoardWidth, messageBoardHeight)
+            pygame.draw.rect(screen, black, messagebackground, 0, borderRadius)
+            messageForeground = pygame.Rect(halfWindowWidth - messageBoardWidth/2 + 4, WINDOW_HEIGHT/5 + 4, messageBoardWidth - 8, messageBoardHeight - 8)
+            pygame.draw.rect(screen, white, messageForeground, 0, borderRadius)
+
             message = "Failed level: " + str(level)
-            self.drawText(message, font, black, screen, halfWindowWidth, WINDOW_HEIGHT/10)
-            message = "You Earned: " + str(gemsEarnedPerKill * enemiesKilled) + " Gems"
-            self.drawText(message, littleFont, black, screen, halfWindowWidth, WINDOW_HEIGHT/6)
+            self.drawText(message, font, black, screen, halfWindowWidth, WINDOW_HEIGHT/10, True)
+            message = "You Earned: " + str(gemsEarnedPerKill * enemiesKilled)
+            self.drawText(message, littleFont, black, screen, halfWindowWidth, WINDOW_HEIGHT/5 + 20, True)
+
+            gem = GemSpriteSheetConverter("Assets\Currency\gems.png")
+            screen.blit(gem.parseSprite(), (halfWindowWidth + gem.xOffset, WINDOW_HEIGHT/5 + gem.yOffset))
 
             if(retryButton.collidepoint((mx, my))):
                 pygame.draw.rect(screen, white, retryButton, 0, borderRadius)
                 pygame.draw.rect(screen, black, menuButton, 0, borderRadius)
 
-                self.drawText("Retry", littleFont, black, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2)
-                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2)
+                self.drawText("Retry", littleFont, black, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2, True)
+                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2, True)
 
                 if(click):
                     if(mouseLifted and retryButton.collidepoint((storedX, storedY))):
@@ -87,8 +103,8 @@ class RoundNotCompletedPage:
                 pygame.draw.rect(screen, black, retryButton, 0, borderRadius)
                 pygame.draw.rect(screen, white, menuButton, 0, borderRadius)
 
-                self.drawText("Retry", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2)
-                self.drawText("To Menu", littleFont, black, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2)
+                self.drawText("Retry", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2, True)
+                self.drawText("To Menu", littleFont, black, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2, True)
 
                 if(click):
                     if(mouseLifted and menuButton.collidepoint((storedX, storedY))):
@@ -100,8 +116,8 @@ class RoundNotCompletedPage:
             if(not retryButton.collidepoint((mx, my)) and not menuButton.collidepoint((mx, my))):
                 pygame.draw.rect(screen, black, retryButton, 0, borderRadius)
                 pygame.draw.rect(screen, black, menuButton, 0, borderRadius)
-                self.drawText("Retry", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2)
-                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2)
+                self.drawText("Retry", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2, True)
+                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2, True)
 
             mouseLifted = False
 

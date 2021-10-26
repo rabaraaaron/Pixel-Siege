@@ -80,11 +80,14 @@
     "actualHeight": 40,
     "hitboxOffsetX": 30,
     "hitboxOffsetY": 25,
+    "healthBarOffsetX": -10,
+    "healthBarOffsetY": 10,
     "flying": "Yes",
     "selfDestruct": 1,
     "yOffscreen": 0,
     "damageMultiplyer": 100,
-    "attack": 50
+    "attack": 50,
+    "attackFrame": 4
 
 
 }

@@ -15,6 +15,8 @@ class EnemySpriteSheetConverter:
         self.hitboxOffsetY = self.data["hitboxOffsetY"]
         self.yOffscreen = self.data["yOffscreen"]
         self.multiplyer = self.data['damageMultiplyer']
+        self.attackFrame = self.data['attackFrame']
+        self.selfDestruct = self.data['selfDestruct']
         f.close()
 
     def getSprite(self, x, y, w, h):
@@ -52,3 +54,6 @@ class EnemySpriteSheetConverter:
 
     def getDamage(self):
         return self.data['attack']
+
+    def getHealthBarOffset(self):
+        return (self.data['healthBarOffsetX'], self.data['healthBarOffsetY'])

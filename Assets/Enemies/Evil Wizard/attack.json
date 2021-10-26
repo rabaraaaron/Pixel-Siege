@@ -29,7 +29,7 @@
             "sourceSize": {"w": 250, "h": 250}
         },
         "attack5.png":{
-            "frame": {"x": 100, "y": 0, "w": 250, "h": 250},
+            "frame": {"x": 1000, "y": 0, "w": 250, "h": 250},
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 250},
@@ -62,14 +62,17 @@
     "zoom": 1,
     "color": {"r": 0, "g": 255, "b": 0},
     "speed": 2,
-    "actualWidth": 100,
-    "actualHeight": 250,
-    "hitboxOffsetX": 30,
-    "hitboxOffsetY": 0,
+    "actualWidth": 50,
+    "actualHeight": 75,
+    "hitboxOffsetX": 100,
+    "hitboxOffsetY": 100,
+    "healthBarOffsetX": 70,
+    "healthBarOffsetY": 90,
     "flying": "No",
     "selfDestruct": 0,
     "yOffscreen": 100,
     "damageMultiplyer": 0.425,
-    "attack": 25
+    "attack": 25,
+    "attackFrame": 5
 
 }

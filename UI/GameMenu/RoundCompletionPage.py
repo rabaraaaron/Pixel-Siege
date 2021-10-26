@@ -4,6 +4,8 @@ from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import pygame
 import sys
 
+from Models.GemSpriteSheetConverter import GemSpriteSheetConverter
+
 pygame.init()
 
 WINDOW_HEIGHT = 600
@@ -14,10 +16,13 @@ font = pygame.font.SysFont(None, 75)
 
 class RoundCompletionPage:
 
-    def drawText(text, font, color, surface, x, y):
+    def drawText(text, font, color, surface, x, y, center):
             textObject = font.render(text, 1, color)
             textRec = textObject.get_rect()
-            textRec.center = (x, y)
+            if center:
+                textRec.center = (x, y)
+            else:
+                textRec.topLeft = (x, y)
             surface.blit(textObject, textRec)
     
     def roundComplete(self):
@@ -52,8 +57,10 @@ class RoundCompletionPage:
         littleFont = pygame.font.SysFont(None, 28)
         bigButtonHeight = 25
         bigButtonWidth = 100
+        messageBoardWidth = 250
+        messageBoardHeight = 300
         halfWindowWidth = WINDOW_WIDTH/2
-        firstButtonHeight = WINDOW_HEIGHT/2
+        firstButtonHeight = (WINDOW_HEIGHT/4) * 3
         storedX, storedY = 0, 0
 
 
@@ -64,17 +71,25 @@ class RoundCompletionPage:
             continueButton = pygame.Rect(halfWindowWidth - 125, firstButtonHeight, bigButtonWidth, bigButtonHeight)
             menuButton = pygame.Rect(halfWindowWidth + 25, firstButtonHeight, bigButtonWidth, bigButtonHeight)
 
+            messagebackground = pygame.Rect(halfWindowWidth - messageBoardWidth/2, WINDOW_HEIGHT/5, messageBoardWidth, messageBoardHeight)
+            pygame.draw.rect(screen, black, messagebackground, 0, borderRadius)
+            messageForeground = pygame.Rect(halfWindowWidth - messageBoardWidth/2 + 4, WINDOW_HEIGHT/5 + 4, messageBoardWidth - 8, messageBoardHeight - 8)
+            pygame.draw.rect(screen, white, messageForeground, 0, borderRadius)
+
             message = "Completed level: " + str(level)
-            self.drawText(message, font, black, screen, halfWindowWidth, WINDOW_HEIGHT/10)
-            message = "You Earned: " + str(gemsEarnedPerKill * enemyAmount) + " Gems"
-            self.drawText(message, littleFont, black, screen, halfWindowWidth, WINDOW_HEIGHT/6)
+            self.drawText(message, font, black, screen, halfWindowWidth, WINDOW_HEIGHT/10, True)
+            message = "You Earned: " + str(gemsEarnedPerKill * enemyAmount)
+            self.drawText(message, littleFont, black, screen, halfWindowWidth, WINDOW_HEIGHT/5 + 20, True)
+
+            gem = GemSpriteSheetConverter("Assets\Currency\gems.png")
+            screen.blit(gem.parseSprite(), (halfWindowWidth + gem.xOffset, WINDOW_HEIGHT/5 + gem.yOffset))
 
             if(continueButton.collidepoint((mx, my))):
                 pygame.draw.rect(screen, white, continueButton, 0, borderRadius)
                 pygame.draw.rect(screen, black, menuButton, 0, borderRadius)
 
-                self.drawText("Continue", littleFont, black, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2)
-                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2)
+                self.drawText("Continue", littleFont, black, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2, True)
+                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2, True)
 
                 if(click):
                     if(mouseLifted and continueButton.collidepoint((storedX, storedY))):
@@ -88,8 +103,8 @@ class RoundCompletionPage:
                 pygame.draw.rect(screen, black, continueButton, 0, borderRadius)
                 pygame.draw.rect(screen, white, menuButton, 0, borderRadius)
 
-                self.drawText("Continue", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2)
-                self.drawText("To Menu", littleFont, black, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2)
+                self.drawText("Continue", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2, True)
+                self.drawText("To Menu", littleFont, black, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2, True)
 
                 if(click):
                     if(mouseLifted and menuButton.collidepoint((storedX, storedY))):
@@ -101,8 +116,8 @@ class RoundCompletionPage:
             if(not continueButton.collidepoint((mx, my)) and not menuButton.collidepoint((mx, my))):
                 pygame.draw.rect(screen, black, continueButton, 0, borderRadius)
                 pygame.draw.rect(screen, black, menuButton, 0, borderRadius)
-                self.drawText("Continue", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2)
-                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2)
+                self.drawText("Continue", littleFont, white, screen, halfWindowWidth-75, firstButtonHeight + bigButtonHeight/2, True)
+                self.drawText("To Menu", littleFont, white, screen, halfWindowWidth+75, firstButtonHeight + bigButtonHeight/2, True)
 
             mouseLifted = False
 
